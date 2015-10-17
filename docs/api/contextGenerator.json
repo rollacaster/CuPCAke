@@ -1,0 +1,778 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.1.0",
+        "title": "ContextGenerator",
+        "description": "Context Generator API can generate context information for Cyber-Physical Systems.",
+        "contact": {
+            "name": "Thomas Sojka",
+            "email": "thsojka@mytum.de"
+        }
+    },
+    "host": "localhost:9000",
+    "basePath": "/v1",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/cps": {
+            "get": {
+                "tags": [
+                    "CPS"
+                ],
+                "description": "Gets `CPS` objects.\n",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded CPSs",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CPSRes"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CPS"
+                ],
+                "description": "Creates `CPS` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "location": {
+                                "description": "Location of the CPS",
+                                "type": "string"
+                            }
+                        },
+                        "schema": {
+                            "title": "Created CPS",
+                            "$ref": "#/definitions/CPSRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}": {
+            "get": {
+                "tags": [
+                    "CPS"
+                ],
+                "description": "Gets `CPS` object.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded CPS",
+                            "$ref": "#/definitions/CPSRes"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "CPS"
+                ],
+                "description": "Updates `CPS` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/cpsData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Updated CPS",
+                            "$ref": "#/definitions/CPSRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "CPS"
+                ],
+                "description": "Deletes `CPS` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types": {
+            "get": {
+                "tags": [
+                    "EntityType"
+                ],
+                "description": "Gets `EntityType` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded EntityTypes",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/EntityTypeRes"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "EntityType"
+                ],
+                "description": "Creates `EntityType` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityTypeData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "location": {
+                                "description": "Location of the EntityType",
+                                "type": "string"
+                            }
+                        },
+                        "schema": {
+                            "title": "Created EntityType",
+                            "$ref": "#/definitions/EntityTypeRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types/{typeId}": {
+            "get": {
+                "tags": [
+                    "EntityType"
+                ],
+                "description": "Gets `EntityType` object.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded EntityType",
+                            "$ref": "#/definitions/EntityTypeRes"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "EntityType"
+                ],
+                "description": "Updates `EntityType` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Updated EntityType",
+                            "$ref": "#/definitions/EntityTypeRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "EntityType"
+                ],
+                "description": "Deletes `EntityType` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types/{typeId}/entitys": {
+            "get": {
+                "tags": [
+                    "Entity"
+                ],
+                "description": "Gets `Entity` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded Entities",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/EntityRes"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Entity"
+                ],
+                "description": "Creates `Entity` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "location": {
+                                "description": "Location of the Entity",
+                                "type": "string"
+                            }
+                        },
+                        "schema": {
+                            "title": "Created Entity",
+                            "$ref": "#/definitions/EntityRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types/{typeId}/entitys/{entityId}": {
+            "get": {
+                "tags": [
+                    "Entity"
+                ],
+                "description": "Gets `Entity` object.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded Entity",
+                            "$ref": "#/definitions/EntityRes"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Entity"
+                ],
+                "description": "Creates `Entity` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Updated Entity",
+                            "$ref": "#/definitions/EntityRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Entity"
+                ],
+                "description": "Deletes `Entity` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types/{typeId}/entitys/{entityId}/subscriptions": {
+            "get": {
+                "tags": [
+                    "Subscription"
+                ],
+                "description": "Gets `Subscription` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded Subscriptions",
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SubscriptionRes"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Subscription"
+                ],
+                "description": "Creates `Subscription` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionData"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "headers": {
+                            "location": {
+                                "description": "Location of the Subscription",
+                                "type": "string"
+                            }
+                        },
+                        "schema": {
+                            "title": "Created Subscription",
+                            "$ref": "#/definitions/SubscriptionRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/cps/{cpsId}/types/{typeId}/entitys/{entityId}/subscriptions/{subscriptionId}": {
+            "get": {
+                "tags": [
+                    "Subscription"
+                ],
+                "description": "Gets `Subscription` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Loaded Subscription",
+                            "$ref": "#/definitions/SubscriptionRes"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Subscription"
+                ],
+                "description": "Updates `Subscription` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "title": "Updated Subscription",
+                            "$ref": "#/definitions/SubscriptionRes"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Subscription"
+                ],
+                "description": "Deletes `Subscription` objects.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/cpsId"
+                    },
+                    {
+                        "$ref": "#/parameters/typeId"
+                    },
+                    {
+                        "$ref": "#/parameters/entityId"
+                    },
+                    {
+                        "$ref": "#/parameters/subscriptionId"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/context": {
+            "post": {
+                "tags": [
+                    "Context"
+                ],
+                "description": "Starts the dissemination of context for `ContextSubscription`, the data is send as a stream to a  provided MQTT `topic` over web sockets.\n",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/contextSubscription"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Context"
+                ],
+                "description": "Stops the dissemination of context.",
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "query",
+                        "description": "Topic of the MQTT dissemination.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "CPS": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "connections": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "EntityType": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Entity": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Subscription": {
+            "properties": {
+                "subscription": {
+                    "type": "string"
+                }
+            }
+        },
+        "CPSRes": {
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "connections": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "EntityTypeRes": {
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "EntityRes": {
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "SubscriptionRes": {
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "subscription": {
+                    "type": "string"
+                }
+            }
+        },
+        "ContextSubscription": {
+            "properties": {
+                "topic": {
+                    "type": "string"
+                },
+                "queries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Query"
+                    }
+                },
+                "realtime": {
+                    "type": "boolean"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "Query": {
+            "properties": {
+                "cps": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "entity": {
+                    "type": "string"
+                },
+                "attribute": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "parameters": {
+        "cpsId": {
+            "name": "cpsId",
+            "in": "path",
+            "description": "Id of a `CPS`",
+            "required": true,
+            "type": "string"
+        },
+        "typeId": {
+            "name": "typeId",
+            "in": "path",
+            "description": "Id of an `EntityType`",
+            "required": true,
+            "type": "string"
+        },
+        "entityId": {
+            "name": "entityId",
+            "in": "path",
+            "description": "Id of an `Entity`",
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "Id of an `Subscription`",
+            "required": true,
+            "type": "string"
+        },
+        "cpsData": {
+            "name": "cpsData",
+            "in": "body",
+            "description": "Data of a `CPS`",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/CPS"
+            }
+        },
+        "entityTypeData": {
+            "name": "entityTypeData",
+            "in": "body",
+            "description": "Data of a `EntityType`",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/EntityType"
+            }
+        },
+        "entityData": {
+            "name": "entityData",
+            "in": "body",
+            "description": "Data of a `Entity`",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Entity"
+            }
+        },
+        "subscriptionData": {
+            "name": "subscriptionData",
+            "in": "body",
+            "description": "Data of a `Subscription`",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/Subscription"
+            }
+        },
+        "contextSubscription": {
+            "name": "contextSubscription",
+            "in": "body",
+            "description": "Specifies which context data should be sent.",
+            "required": true,
+            "schema": {
+                "$ref": "#/definitions/ContextSubscription"
+            }
+        }
+    }
+}

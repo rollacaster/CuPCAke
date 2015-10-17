@@ -1,0 +1,23 @@
+{
+  "name": "cpsanalytics",
+  "version": "0.1.0",
+  "authors": [
+    "Thomas Sojka <thsojka@mytum.de>"
+  ],
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.5",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

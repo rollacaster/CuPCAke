@@ -1,0 +1,10 @@
+/bower_components/
+/coverage/
+/dist/
+/node_modules/
+*.api
+*.idea
+*.org
+*.tern-port
+npm-debug.log
+/.projectile

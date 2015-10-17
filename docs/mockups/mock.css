@@ -1,0 +1,105 @@
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+/* We tell all items to be 100% width */
+.header, .main, .nav, .aside, .footer {
+  flex: 1 100%;
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars 
+   */
+  .main { flex:11 0px; padding: 3%}
+  
+  .aside   { order: 1; flex: 1 0 10%;}
+  .main    { order: 2; }
+  .footer  { order: 4; }
+}
+
+.navbar--column {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main__title {
+    flex: 1 1 70%;
+}
+
+.items {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.items__title {
+    flex: 1 0 100%;
+    padding-bottom: 1em;
+}
+
+.items__button {
+    align-self: center;
+}
+
+.items__body {
+    display: flex;
+    justify-content: center;
+}
+
+.entity {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form__field--column {
+    flex-direction: column
+}
+
+.form__title {
+    flex: 1 0 100%;
+}
+
+.form__button {
+    flex: 1 0 100%;
+    margin-top: 1em;
+}
+
+.form__inputs--button {
+    display: flex;
+}
+
+.branch {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.branch__leaf {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,10 @@
+{
+  "bitwise": true,
+  "noarg": true,
+  "nonew": true,
+  "undef": true,
+  "node": true,
+  "mocha": true,
+  "predef" : ["expect", "contextGenerator", "contextGeneratorWS"],
+  "esnext": true
+}
