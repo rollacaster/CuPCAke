@@ -34,7 +34,7 @@ let defaultConfig = {
   port: process.env.PORT || 9000,
 
   // Should we populate the DB with sample data?
-  seedDB: true,
+  seedDB: false,
 
   // MongoDB connection options
   mongo: {
