@@ -104,7 +104,6 @@ export default class MQTTDisseminator {
   */
   checkDone(context, publishInterval) {
     if (context.done) {
-      console.log('done');
       mqtt.publish(this.topic, this.publishData);
       clearInterval(this.publishInterval);
     }
