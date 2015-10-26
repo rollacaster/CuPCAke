@@ -149,12 +149,13 @@ export class BeaconContainer extends React.Component {
     return (
       <div className="beaconpos__areacontainer" ref={this.setComponentPosition}>
           <div className="beaconpos__area" style={backgroundStyle}>
-              {!data? <BeaconArea allBeacons={allBeacons} sizeInPixels={{width, height}}
-               sizeInMeter={sizeInMeter} activeBeacon={activeBeacon} onClick={changeBackground}
-               position={position}/> :
-                        <HeatMap id={id} data={data} sizeInMeter={sizeInMeter} allBeacons={allBeacons}
-               sizeInPixels={{width, height}}/>
-               }
+              {!data? 
+               <BeaconArea allBeacons={allBeacons} sizeInPixels={{width, height}}
+                           sizeInMeter={sizeInMeter} activeBeacon={activeBeacon} onClick={changeBackground}
+                           position={position}/> :
+               <HeatMap id={id} data={data} sizeInMeter={sizeInMeter} allBeacons={allBeacons}
+                        sizeInPixels={{width, height}}/>
+              }
           </div>
       </div>
     );
