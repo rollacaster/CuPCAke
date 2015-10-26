@@ -22,14 +22,9 @@ module.exports = {
   unitTests: 'dist/**/*.spec.js',
   integrationTests: 'dist/**/*.test.js',
 
-  checkStyle: {
-    preset: 'airbnb',
-    esnext: true
-  },
-
   testRunner: {
     timeout: 5000,
-    istanbul: true
+    istanbul: false
   },
 
   clientBuildSettings: clientBuildSettings
