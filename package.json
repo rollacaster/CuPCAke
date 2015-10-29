@@ -24,7 +24,7 @@
     "mosca": "^0.29.0",
     "mqtt": "^1.1.5",
     "node-expat": "^2.3.7",
-    "node-opcua": "0.0.47",
+    "node-opcua": "^0.0.49",
     "object-assign": "^4.0.1",
     "pipes-and-filters": "0.0.4",
     "qs": "^4.0.0",
