@@ -1,23 +1,10 @@
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgheadline7">1. CuPCAke</a>
-<ul>
-<li><a href="#orgheadline1">1.1. Features</a></li>
-<li><a href="#orgheadline2">1.2. Requirements</a></li>
-<li><a href="#orgheadline3">1.3. Installation</a></li>
-<li><a href="#orgheadline5">1.4. Start</a>
-<ul>
-<li><a href="#orgheadline4">1.4.1. Default Environment Variables</a></li>
-</ul>
-</li>
-<li><a href="#orgheadline6">1.5. Documentation</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+- [CuPCAke](#sec-1)
+  - [Features](#sec-1-1)
+  - [Requirements](#sec-1-2)
+  - [Installation](#sec-1-3)
+  - [Start](#sec-1-4)
+    - [Default Environment Variables](#sec-1-4-1)
+  - [Documentation](#sec-1-5)
 
 # CuPCAke<a id="orgheadline7"></a>
 
@@ -64,7 +51,7 @@ context information of Cyber Physical Systems (CPS).
 <tbody>
 <tr>
 <td class="org-left">npm start</td>
-<td class="org-left">Starts CuPCAKE in production environment. (You have to build CuPCAke in production mode upfront: e.g NODE_ENV=production npm run build)</td>
+<td class="org-left">Starts CuPCAKE in production environment.</td>
 </tr>
 
 
