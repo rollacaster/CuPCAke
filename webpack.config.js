@@ -1,9 +1,8 @@
 var path = require('path');
-var bower_dir = __dirname + '/bower_components';
 
 var config = {
   entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/CPSAnalytics/App.jsx')],
-  
+
   devtool: 'eval',
 
   output: {
@@ -17,7 +16,7 @@ var config = {
         test: path.join(__dirname, 'src/CPSAnalytics'),
         loader: 'babel-loader',
         query: {
-          optional: ['es7.classProperties','es7.objectRestSpread', 'es7.decorators']
+          optional: ['es7.classProperties', 'es7.objectRestSpread', 'es7.decorators']
         }
       },
       {
@@ -39,8 +38,8 @@ var config = {
   },
 
   externals: {
-    'jquery': 'jQuery',
-    'd3': 'd3'
+    jquery: 'jQuery',
+    d3: 'd3'
   },
 
   node: {

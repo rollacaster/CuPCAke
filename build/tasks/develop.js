@@ -21,14 +21,13 @@ build.task('develop:ContextGenerator', ['build:ContextGenerator'], function(done
     },
     tasks: ['build:ContextGenerator']
   }).on('start', function() {
-    done()
+    done();
   });
 });
 
 build.task('develop:CPSAnalytics', ['build:CPSAnalytics'], function() {
   spawn('webpack-dev-server', ['--content-base', 'dist/CPSAnalytics', '--hot',
-                               '--inline', '--port', '4000']
-    , {stdio: 'inherit'}
+                               '--inline', '--port', '4000'], {stdio: 'inherit'}
   );
 });
 

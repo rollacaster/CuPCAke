@@ -73,7 +73,7 @@ function transpileWithSourceMaps(sourcePath, destPath, sourceMapsPath) {
   return build.src(sourcePath)
               .pipe(sourcemaps.init())
               .pipe(es6Transpiler({
-                optional: ['es7.classProperties','es7.objectRestSpread', 'es7.decorators']
+                optional: ['es7.classProperties', 'es7.objectRestSpread', 'es7.decorators']
               }))
               .pipe(sourcemaps.write('.'))
               .pipe(build.dest(destPath));

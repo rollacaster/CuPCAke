@@ -6,7 +6,7 @@ var checkStyle = require('gulp-jscs');
 var runSequence = require('run-sequence');
 
 build.task('test', function(done) {
-  runSequence('test:setup', 
+  runSequence('test:setup',
               ['test:unit', 'test:integration', 'styleCheck',
                'codeLint']);
 });

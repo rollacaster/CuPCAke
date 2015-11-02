@@ -1,21 +1,21 @@
 var src = 'src';
 var dist = 'dist';
-var contextGenerator = '/ContextGenerator';
-var cpsAnalytics = '/CPSAnalytics';
-var servers = '/Servers';
+var contextGeneratorPath = '/ContextGenerator';
+var cpsAnalyticsPath = '/CPSAnalytics';
+var serversPath = '/Servers';
 
 var clientBuildSettings = require('../webpack.config');
 
 module.exports = {
   src: 'src',
-  srcContextGenerator: src + contextGenerator,
-  srcCPSAnalytics: src + cpsAnalytics,
-  srcServers: src + servers,
+  srcContextGenerator: src + contextGeneratorPath,
+  srcCPSAnalytics: src + cpsAnalyticsPath,
+  srcServers: src + serversPath,
 
   dist: dist,
-  distContextGenerator: dist + contextGenerator,
-  distCPSAnalytics: dist + cpsAnalytics,
-  distServer: dist + servers,
+  distContextGenerator: dist + contextGeneratorPath,
+  distCPSAnalytics: dist + cpsAnalyticsPath,
+  distServer: dist + serversPath,
 
   distDocs: dist + '/docs',
 
