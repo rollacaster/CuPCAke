@@ -69,7 +69,7 @@ export default class OPCConnection extends CPSConnection {
         }
 
         session.browse(browseDescription, function(err, nodes) {
-          if (err) {
+          if (err || !nodes[0].references) {
             log.info({err: err}, 'Could not browse server.');
             reject(err);
           }
