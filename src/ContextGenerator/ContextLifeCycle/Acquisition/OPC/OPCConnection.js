@@ -68,7 +68,7 @@ export default class OPCConnection extends CPSConnection {
           reject('No connection to a OPC Server established');
         }
 
-        session.browse(browseDescription, function(err, nodes) {
+        session.browse(rootFolder, function(err, nodes) {
           if (err) {
             log.info({err: err}, 'Could not browse server.');
             reject(err);

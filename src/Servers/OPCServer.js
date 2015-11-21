@@ -6,8 +6,8 @@ let server = new opcua.OPCUAServer({
 });
 
 server.initialize(function() {
-  server.engine.createFolder('ObjectsFolder', { browseName: 'TemperatureSensors'});
-  server.engine.createFolder('ObjectsFolder', { browseName: 'SmokeSensors'});
+  server.engine.addFolder('ObjectsFolder', { browseName: 'TemperatureSensors'});
+  server.engine.addFolder('ObjectsFolder', { browseName: 'SmokeSensors'});
 
   server.temperature1 = addVariable('TemperatureSensors',
                                     'TemperatureSensor#1',
@@ -59,8 +59,8 @@ function addVariable(folder, name, nodeId, treshold) {
     }
   }, 500);
 
-  return server.engine.addVariableInFolder(folder, {
-    nodeId: nodeId,
+  return server.engine.addVariable(folder, {
+    nodeId,
     browseName: name,
     dataType: 'Double',
     value: {
