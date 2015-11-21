@@ -24,7 +24,7 @@
 
 import 'source-map-support/register';
 import config from '../ContextGenerator/Config/Environment';
-import mongoose from 'mongoose';
+import storage from './Storage';
 import webFramework from 'express';
 import httpServer from '../Servers/HTTPServer';
 import httpServerConfig from './Config/HTTPConfig';
@@ -32,7 +32,7 @@ import routes from './Routes';
 import log from './Helper/Logger';
 
 // Connect to database
-mongoose.connect(config.mongo.uri, config.mongo.options);
+storage.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
 if (config.seedDB) { require('./Config/Seed'); }

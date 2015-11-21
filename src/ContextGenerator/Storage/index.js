@@ -1,4 +1,10 @@
 /** @module Storage */
+import mongoose from 'mongoose';
+
+//Use native promises
+mongoose.Promise = global.Promise;
+
+export default mongoose;
 
 /**
  * Mongoose Model.
