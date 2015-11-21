@@ -18,6 +18,26 @@ export default function startHTTPServer(port, staticFolder) {
   app.use(bodyParser.json());
   app.use(cookieParser());
 
+  if (app.get('env') === 'development' || app.get('env') === 'test') {
+
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+        message: err.message,
+        error: err
+      });
+    });
+
+  }
+
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {}
+    });
+  });
+
   if (staticFolder) { app.use(express.static(staticFolder)); }
 
   let server = http.createServer(app);
