@@ -5,6 +5,31 @@ import {post, remove} from '../Helpers/AjaxHelper';
 import MQTTClient from '../Helpers/MQTTBrowserClient';
 import BeaconStore from './Position/BeaconStore';
 
+// Helper methods to handle C3 data
+const dataHelper = {
+  concat(labels, newData, data = {}) {
+    for (let label of labels) {
+      if (!data[label]) {
+        data[label] = [];
+      }
+
+      data[label] = data[label].concat(newData[label]);
+    }
+
+    return data;
+  },
+
+  shorten(data, realtime) {
+    if (realtime) {
+      while (data.length > 100) {
+        data.shift();
+      }
+    }
+
+    return data;
+  }
+};
+
 /**
  * Stores the state of all visualizations.
  * @class
@@ -72,29 +97,5 @@ class VisualizationStore {
     }
   }
 }
-
-const dataHelper = {
-  concat(labels, newData, data = {}) {
-    for (let label of labels) {
-      if (!data[label]) {
-        data[label] = [];
-      }
-
-      data[label] = data[label].concat(newData[label]);
-    }
-
-    return data;
-  },
-
-  shorten(data, realtime) {
-    if (realtime) {
-      while (data.length > 100) {
-        data.shift();
-      }
-    }
-
-    return data;
-  }
-};
 
 export default alt.createStore(VisualizationStore, 'VisualizationStore');
