@@ -1,4 +1,5 @@
 import React from 'react';
+import { render } from 'react-dom';
 import { Router, Route, Link } from 'react-router';
 import NotificationSystem from 'react-notification-system';
 import style from './styles/main.css';
@@ -99,7 +100,7 @@ class Navigation extends React.Component {
   }
 }
 
-React.render((
+render((
   <Router>
       <Route path="/" component={App}>
           <Route path="cpsBuilder" component={CPSOverview} />

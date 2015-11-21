@@ -1,5 +1,6 @@
 /** @module Visualizations/Position */
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {DragDropContext} from 'react-dnd';
 import { Input } from 'react-bootstrap';
 import HTML5Backend from 'react-dnd/modules/backends/HTML5';
@@ -65,7 +66,7 @@ export default class BeaconPositioner extends React.Component {
   }
 
   loadBackground = () => {
-    const fileInput = React.findDOMNode(this.refs.fileInput);
+    const fileInput = ReactDOM.findDOMNode(this.refs.fileInput);
     fileInput.click();
   }
 
@@ -125,8 +126,8 @@ export class BeaconContainer extends React.Component {
   }
 
   setComponentPosition = areaRef => {
-    if (React.findDOMNode(areaRef)) {
-      const {top, left, width, height} = React.findDOMNode(areaRef).getBoundingClientRect();
+    if (ReactDOM.findDOMNode(areaRef)) {
+      const {top, left, width, height} = ReactDOM.findDOMNode(areaRef).getBoundingClientRect();
       const {sizeInPixels} = this.state;
 
       if (sizeInPixels.width === 0) {
