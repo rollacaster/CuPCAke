@@ -70,7 +70,7 @@ class QueryGroups extends React.Component {
   }
 
   handleTypeClick = type => {
-    QueryActions.type(type);
+    QueryActions.typeChange(type);
   }
 
   handleEntityClick = entity => {

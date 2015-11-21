@@ -73,7 +73,7 @@ class QueryActions {
      * @memberOf module:VisualizationConfigurator.QueryActions
      */
 
-    this.generateActions('cps', 'type', 'entity',
+    this.generateActions('cps', 'typeChange', 'entity',
                          'attribute', 'attributeType',
                          'add', 'clear');
   }

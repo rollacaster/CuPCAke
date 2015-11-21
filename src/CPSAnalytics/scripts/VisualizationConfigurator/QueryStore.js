@@ -37,11 +37,11 @@ export default class QueryStore {
 
   /**
    * @see {@link module:VisualizationConfigurator.QueryActions#type}
-   * @function onType
+   * @function onTypeChange
    * @instance
    * @memberOf module:VisualizationConfigurator.QueryStore
    */
-  onType(type) {
+  onTypeChange(type) {
     this.type = type;
     this.entity = null;
     this.attribute = null;
