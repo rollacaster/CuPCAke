@@ -26,9 +26,9 @@ build.task('develop:ContextGenerator', ['build:ContextGenerator'], function(done
 });
 
 build.task('develop:CPSAnalytics', ['build:CPSAnalytics'], function() {
-  spawn('webpack-dev-server', ['--content-base', 'dist/CPSAnalytics', '--hot',
-                               '--inline', '--port', '4000'], {stdio: 'inherit'}
-  );
+  spawn('./node_modules/webpack-dev-server/bin/webpack-dev-server.js',
+        ['--content-base', 'dist/CPSAnalytics', '--hot','--inline', '--port', '4000'],
+        {stdio: 'inherit'});
 });
 
 build.task('develop:MQTTBroker', ['build:devServers'], function() {
