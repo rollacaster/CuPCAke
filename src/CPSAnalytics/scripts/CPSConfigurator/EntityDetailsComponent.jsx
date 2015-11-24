@@ -180,7 +180,7 @@ class SubscriptionBrowser extends React.Component {
             this.setState({subscriptionBrowser});
           }
         }
-      );
+      ).catch(_ => this.setState({subscriptionBrowser}));
     } else {
       this.setState({subscriptionBrowser});
     }

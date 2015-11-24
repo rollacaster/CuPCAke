@@ -58,18 +58,15 @@ export default class OPCConnection extends CPSConnection {
   browse(rootFolder = 'RootFolder') {
     let _this = this;
 
-    const browseDescription = {
-      nodeId: rootFolder
-    };
-
     return new Promise(function(resolve, reject) {
       let session = _this.connect().then(function(session) {
         if (!session) {
           reject('No connection to a OPC Server established');
         }
 
+        //TODO remove check for empty references after node-opcua 0.50
         session.browse(rootFolder, function(err, nodes) {
-          if (err) {
+          if (err || !nodes[0].references) {
             log.info({err: err}, 'Could not browse server.');
             reject(err);
           }
