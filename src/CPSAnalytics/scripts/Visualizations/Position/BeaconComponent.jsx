@@ -26,27 +26,28 @@ function collect(connect, monitor) {
  * @class
  * @memberOf module:Visualizations/Position
  * @augments external:Component
-*/
-@DragSource(ItemTypes.BEACON, beaconSource, collect)
-  export default class Beacon {
-    static propTypes = {
-      connectDragSource: PropTypes.func.isRequired,
-      id: PropTypes.string.isRequired
-    };
+ */
+class Beacon {
+  static propTypes = {
+    connectDragSource: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired
+  };
 
-    activateBeacon = (e) => {
-      e.preventDefault();
-      const {id} = this.props;
-      BeaconActions.setActiveBeacon(id);
-    }
-
-    render() {
-      const { connectDragSource, id } = this.props;
-
-      return connectDragSource(
-        <Button onClick={this.activateBeacon}>
-             <Badge>{id}</Badge>
-        </Button>
-      );
-    }
+  activateBeacon = (e) => {
+    e.preventDefault();
+    const {id} = this.props;
+    BeaconActions.setActiveBeacon(id);
   }
+
+  render() {
+    const { connectDragSource, id } = this.props;
+
+    return connectDragSource(
+      <Button onClick={this.activateBeacon}>
+          <Badge>{id}</Badge>
+      </Button>
+    );
+  }
+}
+
+export default DragSource(ItemTypes.BEACON, beaconSource, collect)(Beacon)

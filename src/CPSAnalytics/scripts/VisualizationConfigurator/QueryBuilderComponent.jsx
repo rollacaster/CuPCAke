@@ -22,8 +22,7 @@ import {visBuilder} from '../Helpers/Constants/Help';
  * @static
  * @augments external:Component 
 */
-@connectToStores
-export default class QueryBuilder extends React.Component {
+class QueryBuilder extends React.Component {
   static getStores() {
     return [QueryStore, CPSStore];
   }
@@ -241,3 +240,5 @@ class QueryButtons extends React.Component {
     );
   }
 }
+
+export default connectToStores(QueryBuilder);

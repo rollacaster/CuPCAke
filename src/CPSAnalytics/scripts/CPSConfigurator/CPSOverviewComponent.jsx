@@ -18,8 +18,7 @@ import connectToStores from 'alt/utils/connectToStores';
  * @augments external:Component
  * @memberOf module:CPSConfigurator
  */
-@connectToStores
-export default class CPSOverview  extends React.Component {
+class CPSOverview  extends React.Component {
   static getStores() {
     return [CPSStore];
   }
@@ -91,3 +90,5 @@ class CreateCPS extends React.Component {
     );
   }
 }
+
+export default connectToStores(CPSOverview);

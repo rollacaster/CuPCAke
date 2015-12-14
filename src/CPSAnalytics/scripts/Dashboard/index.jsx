@@ -15,8 +15,7 @@ import {attributeTypes} from '../Helpers/Constants';
  * @augments external:Component
  * @listens Stores~VisualizationStore
  */
-@connectToStores
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   static getStores() {
     return [VisualizationStore];
   }
@@ -92,3 +91,5 @@ export default class Dashboard extends React.Component {
     });
   }
 }
+
+export default connectToStores(Dashboard);

@@ -17,8 +17,7 @@ import Entity from './EntityDetailsComponent.jsx'
  * @alias EntityOverview
  * @memberOf module:CPSConfigurator
 */
-@connectToStores
-export default class EntityContainer extends React.Component {
+class EntityContainer extends React.Component {
   static getStores() {
     return [CPSStore];
   }
@@ -119,3 +118,5 @@ class EntityType extends React.Component {
     );
   }
 }
+
+export default connectToStores(EntityContainer);

@@ -76,8 +76,7 @@ export class Button extends React.Component {
  * @augments external:Component
  * @memberOf module:UI
  */
-@connectToStores
-export class Modal extends React.Component {
+class ModalComponent extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string,
@@ -117,6 +116,8 @@ export class Modal extends React.Component {
     );
   }
 };
+
+export const Modal = connectToStores(ModalComponent);
 
 /**
  * A Title UI element with help texts.

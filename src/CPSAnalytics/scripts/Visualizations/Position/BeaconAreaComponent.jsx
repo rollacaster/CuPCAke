@@ -42,45 +42,44 @@ function collect(connect, monitor) {
  * @memberOf module:Visualizations/Position
  * @augments external:Component
  */
-@DropTarget(ItemTypes.BEACON, beaconAreaTarget, collect)
-  export default class BeaconArea extends React.Component {
-    static propTypes = {
-      allBeacons: PropTypes.object.isRequired,
-      sizeInPixels: PropTypes.object.isRequired,
-      sizeInMeter: PropTypes.object.isRequired,
-      activeBeacon: PropTypes.string
-    }
-
-    render() {
-      const {connectDropTarget, allBeacons, activeBeacon,
-             sizeInPixels, sizeInMeter, onClick} = this.props;
-
-      const placedBeacons = [];
-      const isActiveBeacon = _.equals(activeBeacon);
-
-      for (let [beaconId, beaconPosition] of allBeacons.entries()) {
-        if (beaconPosition && sizeInPixels) {
-          placedBeacons.push(
-            <g key={beaconId}>
-                <PlacedBeacon beacon={beaconId} position={beaconPosition}
-                              sizeInMeter={sizeInMeter}
-                              sizeInPixels={sizeInPixels}
-                              isActive={isActiveBeacon(beaconId)} />
-            </g>
-          );
-        }
-      }
-
-      return connectDropTarget(
-        <div onClick={onClick}>
-            {sizeInPixels ?
-             <svg width={sizeInPixels.width} height={sizeInPixels.height}>
-             {placedBeacons}
-             </svg> : ''}
-        </div>
-      )
-    }
+class BeaconArea extends React.Component {
+  static propTypes = {
+    allBeacons: PropTypes.object.isRequired,
+    sizeInPixels: PropTypes.object.isRequired,
+    sizeInMeter: PropTypes.object.isRequired,
+    activeBeacon: PropTypes.string
   }
+
+  render() {
+    const {connectDropTarget, allBeacons, activeBeacon,
+           sizeInPixels, sizeInMeter, onClick} = this.props;
+
+    const placedBeacons = [];
+    const isActiveBeacon = _.equals(activeBeacon);
+
+    for (let [beaconId, beaconPosition] of allBeacons.entries()) {
+      if (beaconPosition && sizeInPixels) {
+        placedBeacons.push(
+          <g key={beaconId}>
+              <PlacedBeacon beacon={beaconId} position={beaconPosition}
+                            sizeInMeter={sizeInMeter}
+                            sizeInPixels={sizeInPixels}
+                            isActive={isActiveBeacon(beaconId)} />
+          </g>
+        );
+      }
+    }
+
+    return connectDropTarget(
+      <div onClick={onClick}>
+          {sizeInPixels ?
+           <svg width={sizeInPixels.width} height={sizeInPixels.height}>
+               {placedBeacons}
+           </svg> : ''}
+      </div>
+    )
+  }
+}
 
 class PlacedBeacon extends React.Component {
   static propTypes = {
@@ -130,3 +129,5 @@ class PlacedBeacon extends React.Component {
     );
   }
 }
+
+export default DropTarget(ItemTypes.BEACON, beaconAreaTarget, collect)(BeaconArea)

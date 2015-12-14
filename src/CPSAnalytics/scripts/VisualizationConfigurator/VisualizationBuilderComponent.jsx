@@ -20,8 +20,7 @@ import uuid from 'uuid';
  * @augments external:Component
  * @memberOf module:VisualizationConfigurator
  */
-@connectToStores
-export default class VisualizationBuilder extends React.Component {
+class VisualizationBuilder extends React.Component {
   static getStores() {
     return [VisualizationStore];
   }
@@ -126,3 +125,5 @@ export default class VisualizationBuilder extends React.Component {
     }
   }
 }
+
+export default connectToStores(VisualizationBuilder)

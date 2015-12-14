@@ -41,9 +41,7 @@ import d3 from 'd3';
  * @memberOf module:Visualizations/Position
  * @augments external:Component
  */
-@DragDropContext(HTML5Backend)
-  @connectToStores
-export default class BeaconPositioner extends React.Component {
+class BeaconPositioner extends React.Component {
   static getStores() {
     return [BeaconStore];
   }
@@ -270,3 +268,5 @@ class HeatMap extends React.Component {
     }
   }
 }
+
+export default DragDropContext(HTML5Backend)(connectToStores(BeaconPositioner))
