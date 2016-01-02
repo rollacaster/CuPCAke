@@ -136,7 +136,7 @@ export class Title extends React.Component {
 
   render() {
     const {name, help} = this.props;
-    const tooltip = (<rb.Tooltip>{help}</rb.Tooltip>);
+    const tooltip = (<rb.Tooltip id={'title'}>{help}</rb.Tooltip>);
 
     return (
       <div className="content__title">
