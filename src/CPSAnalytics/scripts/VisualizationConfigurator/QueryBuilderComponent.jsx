@@ -49,7 +49,7 @@ class QueryGroups extends React.Component {
     attributeType: PropTypes.string,
     attribute: PropTypes.string,
     activeCPS: PropTypes.object,
-    allCPS: PropTypes.object
+    allCPS: PropTypes.array
   }
 
   handleCPSClick(cps) {
@@ -155,7 +155,7 @@ class QueryGroup extends React.Component {
 
 class QueryOverview extends React.Component {
   static propTypes = {
-    queries: React.PropTypes.arrayOf(React.PropTypes.object),
+    queries: React.PropTypes.object
   }
   render() {
     const {queries} = this.props;
