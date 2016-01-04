@@ -1,6 +1,3 @@
-//Is needed because build server runs node 0.10
-require('babel/polyfill');
-
 import http from 'http';
 import express from 'express';
 import compression from 'compression';

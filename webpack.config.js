@@ -1,7 +1,10 @@
 var path = require('path');
+var webpack = require('webpack');
 
 var config = {
-  entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/CPSAnalytics/App.jsx')],
+  entry: [
+    path.resolve(__dirname, './src/CPSAnalytics/App.jsx')
+  ],
 
   devtool: 'eval',
 
@@ -14,10 +17,7 @@ var config = {
     loaders: [
       {
         test: path.join(__dirname, 'src/CPSAnalytics'),
-        loader: 'babel-loader',
-        query: {
-          optional: ['es7.classProperties', 'es7.objectRestSpread', 'es7.decorators']
-        }
+        loaders: ['babel-loader']
       },
       {
         test: /\.css$/,

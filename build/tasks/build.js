@@ -21,7 +21,7 @@ build.task('clean', function(done) {
 build.task('build:ContextGenerator', function() {
   //Copy views
   build.src(config.srcContextGenerator + '/Views/**')
-       .pipe(build.dest(config.distContextGenerator + '/Views'));
+    .pipe(build.dest(config.distContextGenerator + '/Views'));
 
   return transpileWithSourceMaps(config.srcContextGenerator, config.distContextGenerator);
 });
@@ -31,16 +31,12 @@ build.task('build:CPSAnalytics', function(done) {
 
   //Copy index.html
   build.src(config.srcCPSAnalytics + '/index.html')
-              .pipe(processhtml())
-              .pipe(build.dest(config.distCPSAnalytics));
+    .pipe(processhtml())
+    .pipe(build.dest(config.distCPSAnalytics));
 
   //Copy js
   build.src('node_modules/babel-core/browser-polyfill.min.js')
-       .pipe(build.dest(config.distCPSAnalytics));
-
-  if (process.env.NODE_ENV === 'production') {
-    config.clientBuildSettings.entry = [config.clientBuildSettings.entry[1]];
-  }
+    .pipe(build.dest(config.distCPSAnalytics));
 
   //Start bundler
   clientBuilder(config.clientBuildSettings, function(err, status) {
@@ -56,11 +52,11 @@ build.task('build:devServers', function() {
 build.task('build:docs', function() {
   //Copy swagger ui
   build.src('swagger-ui/dist/**/*')
-       .pipe(build.dest(config.distDocs + '/swagger'));
+    .pipe(build.dest(config.distDocs + '/swagger'));
 
   //Copy swagger spec
   build.src('docs/api/contextGenerator.json')
-       .pipe(build.dest(config.distDocs + '/swagger'));
+    .pipe(build.dest(config.distDocs + '/swagger'));
 });
 
 function transpileWithSourceMaps(sourcePath, destPath, sourceMapsPath) {
@@ -71,10 +67,8 @@ function transpileWithSourceMaps(sourcePath, destPath, sourceMapsPath) {
   }
 
   return build.src(sourcePath)
-              .pipe(sourcemaps.init())
-              .pipe(es6Transpiler({
-                optional: ['es7.classProperties', 'es7.objectRestSpread', 'es7.decorators']
-              }))
-              .pipe(sourcemaps.write('.'))
-              .pipe(build.dest(destPath));
+    .pipe(sourcemaps.init())
+    .pipe(es6Transpiler())
+    .pipe(sourcemaps.write('.'))
+    .pipe(build.dest(destPath));
 }
