@@ -4,7 +4,7 @@ import NumericVisualization from '../Visualizations/Numeric/VisualizationCompone
 import {BeaconContainer} from '../Visualizations/Position';
 import VisualizationActions from '../Visualizations/VisualizationActions';
 import VisualizationStore from '../Visualizations/VisualizationStore';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 import {attributeTypes} from '../Helpers/Constants';
 
 /**
@@ -16,16 +16,6 @@ import {attributeTypes} from '../Helpers/Constants';
  * @listens Stores~VisualizationStore
  */
 class Dashboard extends React.Component {
-  static getStores() {
-    return [VisualizationStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      VisualizationStore: VisualizationStore.getState()
-    }
-  }
-
   render() {
     const {visData} = this.props.VisualizationStore;
     const visualizations = JSON.parse(localStorage.getItem('dashboard')) || [];
@@ -92,4 +82,14 @@ class Dashboard extends React.Component {
   }
 }
 
-export default connectToStores(Dashboard);
+export default connect(Dashboard, {
+  listenTo() {
+    return [VisualizationStore];
+  },
+
+  getProps() {
+    return {
+      VisualizationStore: VisualizationStore.getState()
+    }
+  }
+});

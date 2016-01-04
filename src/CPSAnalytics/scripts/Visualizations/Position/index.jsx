@@ -5,7 +5,7 @@ import {DragDropContext} from 'react-dnd';
 import { Input } from 'react-bootstrap';
 import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 import BeaconStore from './BeaconStore';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 import BeaconHolder from './BeaconHolderComponent';
 import BeaconArea from './BeaconAreaComponent';
 import SizeForm from './SizeFormComponent';
@@ -42,16 +42,6 @@ import d3 from 'd3';
  * @augments external:Component
  */
 class BeaconPositioner extends React.Component {
-  static getStores() {
-    return [BeaconStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      beaconStore: BeaconStore.getState()
-    }
-  }
-
   state = {
     background: ''
   }
@@ -269,4 +259,14 @@ class HeatMap extends React.Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(connectToStores(BeaconPositioner))
+export default DragDropContext(HTML5Backend)(connect(BeaconPositioner, {
+  listenTo() {
+    return [BeaconStore];
+  },
+
+  getProps() {
+    return {
+      beaconStore: BeaconStore.getState()
+    }
+  }
+}))

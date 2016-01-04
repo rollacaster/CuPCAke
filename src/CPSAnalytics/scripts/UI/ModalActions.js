@@ -16,9 +16,9 @@ class ModalActions {
    */
   toogleModal(modal) {
     if (modal.target) {
-      this.dispatch(modal.target.id);
+      return modal.target.id;
     } else {
-      this.dispatch(modal);
+      return modal;
     }
   }
 }

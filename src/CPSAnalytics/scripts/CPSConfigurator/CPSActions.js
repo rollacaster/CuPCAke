@@ -21,8 +21,16 @@ class CPSActions {
    * @memberOf module:CPSConfigurator.CPSActions
    */
   loadCPS() {
-    get(`cps`).then(allCPS => this.dispatch(allCPS))
-              .catch(err => this.dispatch({isError: true, err}));
+    return get(`cps`).then(this.loadCPSSuccess.bind(this))
+      .catch(this.loadCPSFail.bind(this));
+  }
+
+  loadCPSSuccess(allCPS) {
+    return allCPS;
+  }
+
+  loadCPSFail(err) {
+    return err;
   }
 
   /**
@@ -34,7 +42,7 @@ class CPSActions {
    */
   loadCPSData(cpsId) {
     let activeCPS = {};
-    get(`cps/${cpsId}`)
+    return get(`cps/${cpsId}`)
       .then(cps => {
         activeCPS = cps;
         return get(`cps/${cpsId}/types`);
@@ -67,9 +75,18 @@ class CPSActions {
         }
 
         return Promise.all(loadEntitys);
-      }).then(allLoaded => this.dispatch({activeCPS}))
+      })
 
-      .catch(err => this.dispatch({isError: true, err}));
+      .then(allLoaded => this.loadCPSDataSuccess(activeCPS))
+      .catch(this.loadCPSDataFail.bind(this));
+  }
+
+  loadCPSDataSuccess(cpsData) {
+    return cpsData;
+  }
+
+  loadCPSDataFail(err) {
+    return err;
   }
 
   /**
@@ -82,13 +99,21 @@ class CPSActions {
    * @memberOf module:CPSConfigurator.CPSActions
    */
   createCPS(cps) {
-    post(`cps`, cps)
-      .then((cps) => {
-        this.dispatch(cps);
+    return post(`cps`, cps)
+      .then(cps => {
         ModalActions.toogleModal.defer(modals.createCPS);
+        this.createCPSSuccess(cps);
       })
 
-      .catch(err => this.dispatch({isError: true, err}));
+      .catch(this.createCPSFail.bind(this));
+  }
+
+  createCPSSuccess(cps) {
+    return cps;
+  }
+
+  createCPSFail(err) {
+    return err;
   }
 
   /**
@@ -107,13 +132,19 @@ class CPSActions {
       pendingTypes.push(post(`cps/${cpsId}/types`, {name: type}));
     }
 
-    Promise.all(pendingTypes)
-                  .then(types => {
-                    this.dispatch(types);
-                    ModalActions.toogleModal.defer(modals.createType);
-                  })
+    return Promise.all(pendingTypes)
+      .then(this.createTypesSuccess.bind(this))
+      .catch(this.createTypesFail.bind(this));
+  }
 
-                  .catch(err => this.dispatch({isError: true, err}));
+  createTypesSuccess(types) {
+    ModalActions.toogleModal.defer(modals.createType);
+    return types;
+  }
+
+  createTypesFail(err) {
+    ModalActions.toogleModal.defer(modals.createType);
+    return err;
   }
 
   /**
@@ -134,13 +165,21 @@ class CPSActions {
       pendingEntitys.push(post(`cps/${cpsId}/types/${typeId}/entitys`, {name: entity}));
     }
 
-    Promise.all(pendingEntitys)
-                    .then(entitys => {
-                      this.dispatch({entitys, typeId});
-                      ModalActions.toogleModal.defer(modals.createEntity + typeName);
-                    })
+    return Promise.all(pendingEntitys)
+      .then(entitys => {
+        ModalActions.toogleModal.defer(modals.createEntity + typeName);
+        this.createEntitysSuccess({entitys, typeId});
+      })
 
-                    .catch(err => this.dispatch({isError: true, err}));
+      .catch(this.createEntitysFail.bind(this));
+  }
+
+  createEntitysSuccess({entitys, typeId}) {
+    return {entitys, typeId};
+  }
+
+  createEntitysFail(err) {
+    return err;
   }
 
   /**
@@ -159,9 +198,17 @@ class CPSActions {
    * @memberOf module:CPSConfigurator.CPSActions
    */
   createSubscription(cpsId, typeId, entityId, subscription) {
-    post(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions`, subscription)
-      .then(subscription => this.dispatch({typeId, entityId, subscription}))
-      .catch(err => this.dispatch({isError: true, err}));
+    return post(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions`, subscription)
+      .then(subscription => this.createSubscriptionSuccess({typeId, entityId, subscription}))
+      .catch(this.createSubscriptionFail.bind(this));
+  }
+
+  createSubscriptionSuccess({typeId, entityId, subscription}) {
+    return {typeId, entityId, subscription};
+  }
+
+  createSubscriptionFail(err) {
+    return err;
   }
 
   /**
@@ -181,13 +228,21 @@ class CPSActions {
    * @memberOf module:CPSConfigurator.CPSActions
    */
   updateSubscription(cpsId, typeId, entityId, subscriptionId, subscription) {
-    put(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions/${subscriptionId}`)
-      .then(subscription => this.dispatch({typeId, entityId, subscriptionId, subscription}))
-      .catch(err => this.dispatch({isError: true, err}));
+    return put(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions/${subscriptionId}`)
+      .then(subscription => this.updateSubscriptionSuccess({typeId, entityId, subscriptionId, subscription}))
+      .catch(this.updateSubscriptionFail.bind(this));
+  }
+
+  updateSubscriptionSuccess({typeId, entityId, subscriptionId, subscription}) {
+    return {typeId, entityId, subscriptionId, subscription};
+  }
+
+  updateSubscriptionFail(err) {
+    return err;
   }
 
   /**
-   * Updates a subscription.
+   * Deltes a subscription.
    * @function delteSubscription
    * @instance
    * @param {string} cpsId - The id of a CPS.
@@ -197,9 +252,17 @@ class CPSActions {
    * @memberOf module:CPSConfigurator.CPSActions
    */
   deleteSubscription(cpsId, typeId, entityId, subscriptionId) {
-    remove(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions/${subscriptionId}`)
-      .then(() => this.dispatch({typeId, entityId, subscriptionId}))
-      .catch(err => this.dispatch({isError: true, err}));
+    return remove(`cps/${cpsId}/types/${typeId}/entitys/${entityId}/subscriptions/${subscriptionId}`)
+      .then(() => this.deleteSubscriptionSuccess({typeId, entityId, subscriptionId}))
+      .catch(this.deleteSubscriptionFail.bind(this));
+  }
+
+  deleteSubscriptionSuccess({typeId, entityId, subscriptionId}) {
+    return {typeId, entityId, subscriptionId};
+  }
+
+  deleteSubscriptionFail(err) {
+    return err;
   }
 }
 

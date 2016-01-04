@@ -20,8 +20,8 @@ class CPSStore {
   }
 
   /**
-   * Loads a CPS.
-   * @function onLoadCPS
+   * Loads all CPSs.
+   * @function onLoadCPSSuccess
    * @param {object[]} allCPS - The response of the GET request.
    * @param {string} allCPS[].name - The name of a CPS.
    * @param {string} allCPS[].connections - The connections of a CPS.
@@ -29,15 +29,17 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onLoadCPS(allCPS) {
-    if (this.errorCheck(allCPS)) {
-      this.setState({allCPS});
-    }
+  onLoadCPSSuccess(allCPS) {
+    this.setState({allCPS});
+  }
+
+  onLoadCPSFail(err) {
+    console.error('Failed to load all CPSs: ', err);
   }
 
   /**
-   * Saves the state of an active CPS.
-   * @function onLoadCPSData
+   * Loads the state of an active CPS.
+   * @function onLoadCPSDataSuccess
    * @param {object} activeCPS - The data of a CPS.
    * @param {object[]} activeCPS.types - The types of a CPS.
    * @param {object[]} activeCPS.types[].name - The name of an entity type.
@@ -54,10 +56,12 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onLoadCPSData(activeCPS) {
-    if (this.errorCheck(activeCPS)) {
-      this.setState(activeCPS);
-    }
+  onLoadCPSDataSuccess(activeCPS) {
+    this.setState({activeCPS});
+  }
+
+  onLoadCPSDataFail(err) {
+    console.error('Failed to load CPS: ', err);
   }
 
   /**
@@ -70,33 +74,41 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onCreateCPS(cps) {
-    if (this.errorCheck(cps, cpsNotify.create)) {
-      this.allCPS = this.allCPS.concat(cps);
-    }
+  onCreateCPSSuccess(cps) {
+    NotificationActions.notify.defer(cpsNotify.create.success());
+    this.allCPS = this.allCPS.concat(cps);
+  }
+
+  onCreateCPSFail(err) {
+    NotificationActions.notify.defer(cpsNotify.create.error(err));
+    console.error('Failed to create CPS: ', err);
   }
 
   /**
    * Saves the state of entity types.
-   * @function onCreateTypes
+   * @function onCreateTypesSuccess
    * @param {object[]} types - The entity types.
    * @param {string} types[].name - The name of an entity type.
    * @throws Will throw an error if the request send an error.
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onCreateTypes(types) {
-    if (this.errorCheck(types, typeNotify.create)) {
-      for (let type of types) {
-        type.entitys = new Map();
-        this.activeCPS.types.set(type._id, type);
-      }
+  onCreateTypesSuccess(types) {
+    NotificationActions.notify.defer(entityNotify.create.success());
+    for (let type of types) {
+      type.entitys = new Map();
+      this.activeCPS.types.set(type._id, type);
     }
+  }
+
+  onCreateTypesFail(err) {
+    NotificationActions.notify.defer(typeNotify.create.error());
+    console.error('Failed to create Type: ', err);
   }
 
   /**
    * Saves the state of entities.
-   * @function onCreateEntitys
+   * @function onCreateEntitysSuccess
    * @param {object} response - The reponse of GET request.
    * @param {object} response.typeId - The id of an entity type.
    * @param {object} response.entitys - The entities.
@@ -105,23 +117,27 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onCreateEntitys(response) {
-    if (this.errorCheck(response, entityNotify.create)) {
-      const {typeId, entitys} = response;
-      const type = this.activeCPS.types.get(typeId);
+  onCreateEntitysSuccess(response) {
+    NotificationActions.notify.defer(entityNotify.create.success());
+    const {typeId, entitys} = response;
+    const type = this.activeCPS.types.get(typeId);
 
-      for (let entity of entitys) {
-        entity.subscriptions = new Map();
-        type.entitys.set(entity._id, entity);
-      }
-
-      this.activeCPS.types.set(typeId, type);
+    for (let entity of entitys) {
+      entity.subscriptions = new Map();
+      type.entitys.set(entity._id, entity);
     }
+
+    this.activeCPS.types.set(typeId, type);
+  }
+
+  onCreateEntitysFail(err) {
+    NotificationActions.notify.defer(entityNotify.create.error());
+    console.error('Failed to create Entity: ', err);
   }
 
   /**
    * Saves the state of a subscriptions
-   * @function onCreateSubscription
+   * @function onCreateSubscriptionSucccess
    * @param {object} response - The reponse of GET request.
    * @param {object} response.typeId - The id of an entity type.
    * @param {object} response.entityId - The id of an entity.
@@ -135,17 +151,21 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onCreateSubscription(response) {
-    if (this.errorCheck(response, subscriptionNotify.create)) {
-      const {typeId, entityId, subscription} = response;
-      const entity = this.activeCPS.types.get(typeId).entitys.get(entityId);
-      entity.subscriptions.set(subscription._id, subscription);
-    }
+  onCreateSubscriptionSuccess(response) {
+    NotificationActions.notify.defer(subscriptionNotify.create.success(response));
+    const {typeId, entityId, subscription} = response;
+    const entity = this.activeCPS.types.get(typeId).entitys.get(entityId);
+    entity.subscriptions.set(subscription._id, subscription);
+  }
+
+  onCreateSubscriptionFail(err) {
+    NotificationActions.notify.defer(subscriptionNotify.create.error(err));
+    console.error('Failed to create Subscription: ', err);
   }
 
   /**
    * Updates the state of a subscription.
-   * @function onUpdateSubscription
+   * @function onUpdateSubscriptionSuccess
    * @param {object} response - The reponse of GET request.
    * @param {object} response.typeId - The id of an entity type.
    * @param {object} response.entityId - The id of an entity.
@@ -160,17 +180,21 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onUpdateSubscription(response) {
-    if (this.errorCheck(response, subscriptionNotify.update)) {
-      const {subscription, subscriptionId, typeId, entityId} = response;
-      this.activeCPS.types.get(typeId).entitys.get(entityId)
-          .subscriptions.set(subscriptionId, subscription);
-    }
+  onUpdateSubscriptionSuccess(response) {
+    NotificationActions.notify.defer(subscriptionNotify.update.success(response));
+    const {subscription, subscriptionId, typeId, entityId} = response;
+    this.activeCPS.types.get(typeId).entitys.get(entityId)
+      .subscriptions.set(subscriptionId, subscription);
+  }
+
+  onUpdateSubscriptionFail(err) {
+    NotificationActions.notify.defer(subscriptionNotify.update.error(err));
+    console.error('Failed to update Subscription: ', err);
   }
 
   /**
    * Deletes the state of a subscriptions
-   * @function onDeleteSubscription
+   * @function onDeleteSubscriptionSuccess
    * @param {object} response - The reponse of GET request.
    * @param {object} response.typeId - The id of an entity type.
    * @param {object} response.entityId - The id of an entity.
@@ -179,32 +203,16 @@ class CPSStore {
    * @instance
    * @memberOf module:CPSConfigurator.CPSStore
    */
-  onDeleteSubscription(response) {
-    if (this.errorCheck(response, subscriptionNotify.remove)) {
-      const {subscriptionId, typeId, entityId} = response;
-      const entity = this.activeCPS.types.get(typeId).entitys.get(entityId);
-      entity.subscriptions.delete(subscriptionId);
-    }
+  onDeleteSubscriptionSuccess(response) {
+    NotificationActions.notify.defer(subscriptionNotify.remove.success(response));
+    const {subscriptionId, typeId, entityId} = response;
+    const entity = this.activeCPS.types.get(typeId).entitys.get(entityId);
+    entity.subscriptions.delete(subscriptionId);
   }
 
-  errorCheck(response, messages) {
-    if (response.isError) {
-      this.error = response.err;
-      console.error(response.err);
-      if (messages) {
-        NotificationActions.notify.defer(
-          messages.error(response.err.responseJSON.error)
-        );
-      }
-
-      return false;
-    }
-
-    if (messages) {
-      NotificationActions.notify.defer(messages.success(response));
-    }
-
-    return true;
+  onDeleteSubscriptionFail(err) {
+    NotificationActions.notify.defer(subscriptionNotify.remove.error(err));
+    console.error('Failed to remove Subscription: ', err);
   }
 }
 

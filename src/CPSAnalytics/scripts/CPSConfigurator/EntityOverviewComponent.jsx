@@ -6,7 +6,7 @@ import {modals} from '../Helpers/Constants';
 import {cpsBuilder} from '../Helpers/Constants/Help';
 import CPSStore from './CPSStore';
 import CPSActions from './CPSActions';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 import Entity from './EntityDetailsComponent.jsx'
 
 /** 
@@ -18,16 +18,6 @@ import Entity from './EntityDetailsComponent.jsx'
  * @memberOf module:CPSConfigurator
 */
 class EntityContainer extends React.Component {
-  static getStores() {
-    return [CPSStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      CPSStore: CPSStore.getState()
-    }
-  }
-
   render() {
     const {activeCPS} = this.props.CPSStore;
     const {cps} = this.props.params;
@@ -119,4 +109,14 @@ class EntityType extends React.Component {
   }
 }
 
-export default connectToStores(EntityContainer);
+export default connect(EntityContainer, {
+  listenTo() {
+    return [CPSStore];
+  },
+
+  getProps() {
+    return {
+      CPSStore: CPSStore.getState()
+    }
+  }
+});

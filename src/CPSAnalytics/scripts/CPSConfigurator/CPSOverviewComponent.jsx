@@ -9,7 +9,7 @@ import {CreateForm} from '../UI/Forms/Form';
 import {FormInput} from '../UI/Forms/FormElements';
 import CPSStore from './CPSStore';
 import CPSActions from './CPSActions';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 
 /**
  * Shows an overview about all saved CPSs and allows their creation.
@@ -19,16 +19,6 @@ import connectToStores from 'alt/utils/connectToStores';
  * @memberOf module:CPSConfigurator
  */
 class CPSOverview  extends React.Component {
-  static getStores() {
-    return [CPSStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      CPSStore: CPSStore.getState()
-    }
-  }
-
   render() {
     const {allCPS} = this.props.CPSStore;
 
@@ -91,4 +81,14 @@ class CreateCPS extends React.Component {
   }
 }
 
-export default connectToStores(CPSOverview);
+export default connect(CPSOverview, {
+  listenTo() {
+    return [CPSStore];
+  },
+
+  getProps() {
+    return {
+      CPSStore: CPSStore.getState()
+    }
+  }
+});

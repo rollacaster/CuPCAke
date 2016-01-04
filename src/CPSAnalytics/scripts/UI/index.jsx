@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { Link } from 'react-router';
 import ModalStore from './ModalStore';
 import ModalActions from './ModalActions';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 
 /**
  * A button UI element.
@@ -81,15 +81,6 @@ class ModalComponent extends React.Component {
     id: PropTypes.string.isRequired,
     text: PropTypes.string,
   }
-  static getStores() {
-    return [ModalStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      modals: ModalStore.getState().modals
-    }
-  }
 
   render() {
     let {
@@ -117,7 +108,17 @@ class ModalComponent extends React.Component {
   }
 };
 
-export const Modal = connectToStores(ModalComponent);
+export const Modal = connect(ModalComponent, {
+  listenTo() {
+    return [ModalStore];
+  },
+
+  getProps() {
+    return {
+      modals: ModalStore.getState().modals
+    }
+  }
+});
 
 /**
  * A Title UI element with help texts.

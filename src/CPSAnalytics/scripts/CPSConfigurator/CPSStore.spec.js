@@ -14,7 +14,7 @@ describe('CPSStore', () => {
           name: 'cpsName',
           connections: ['cpsConnections']
         };
-        let action = CPSActions.CREATE_CPS;
+        let action = CPSActions.CREATE_CPSSUCCESS;
         alt.dispatcher.dispatch({action, data});
 
         expect(CPSStore.getState().allCPS).to.be.deep.equal([data]);
@@ -25,7 +25,7 @@ describe('CPSStore', () => {
   describe('onCreateTypes', () => {
     it('should create entity types', () => {
       let data = [{_id: 'typeId1', name: 'type1'}];
-      let action = CPSActions.CREATE_TYPES;
+      let action = CPSActions.CREATE_TYPES_SUCCESS;
       alt.dispatcher.dispatch({action, data});
 
       const {types} = CPSStore.getState().activeCPS;
@@ -41,7 +41,7 @@ describe('CPSStore', () => {
           {_id: 'entityId1', name: 'entity1'}
         ]
       };
-      let action = CPSActions.CREATE_ENTITYS;
+      let action = CPSActions.CREATE_ENTITYS_SUCCESS;
       alt.dispatcher.dispatch({action, data});
 
       const {types} = CPSStore.getState().activeCPS;
@@ -62,7 +62,7 @@ describe('CPSStore', () => {
         typeId: 'typeId1'
       };
 
-      const action = CPSActions.CREATE_SUBSCRIPTION;
+      const action = CPSActions.CREATE_SUBSCRIPTION_SUCCESS;
       alt.dispatcher.dispatch({action, data});
 
       const {types} = CPSStore.getState().activeCPS;
@@ -96,7 +96,7 @@ describe('CPSStore', () => {
         subscriptionId: 'subscriptionId1'
       };
 
-      const action = CPSActions.UPDATE_SUBSCRIPTION;
+      const action = CPSActions.UPDATE_SUBSCRIPTION_SUCCESS;
       alt.dispatcher.dispatch({action, data});
 
       const {types} = CPSStore.getState().activeCPS;
@@ -114,7 +114,7 @@ describe('CPSStore', () => {
         subscriptionId: 'subscriptionId1'
       };
 
-      const action = CPSActions.DELETE_SUBSCRIPTION;
+      const action = CPSActions.DELETE_SUBSCRIPTION_SUCCESS;
       alt.dispatcher.dispatch({action, data});
 
       const {types} = CPSStore.getState().activeCPS;

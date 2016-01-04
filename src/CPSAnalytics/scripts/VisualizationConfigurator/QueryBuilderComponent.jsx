@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import Formsy from 'formsy-react';
 import qs from 'qs';
 import _ from 'ramda';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 import CPSActions from '../CPSConfigurator/CPSActions';
 import CPSStore from '../CPSConfigurator/CPSStore';
 import QueryActions from './QueryActions';
@@ -23,17 +23,6 @@ import {visBuilder} from '../Helpers/Constants/Help';
  * @augments external:Component 
 */
 class QueryBuilder extends React.Component {
-  static getStores() {
-    return [QueryStore, CPSStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      QueryStore: QueryStore.getState(),
-      CPSStore: CPSStore.getState()
-    }
-  }
-
   render() {
     const {allCPS, activeCPS}  = this.props.CPSStore;
     const {cps, type, entity, attribute, attributeType, queries}  = this.props.QueryStore;
@@ -241,4 +230,15 @@ class QueryButtons extends React.Component {
   }
 }
 
-export default connectToStores(QueryBuilder);
+export default connect(QueryBuilder, {
+  listenTo() {
+    return [QueryStore, CPSStore];
+  },
+
+  getProps() {
+    return {
+      QueryStore: QueryStore.getState(),
+      CPSStore: CPSStore.getState()
+    }
+  }
+});

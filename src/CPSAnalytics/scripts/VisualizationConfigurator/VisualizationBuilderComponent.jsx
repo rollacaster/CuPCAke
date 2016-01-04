@@ -10,7 +10,7 @@ import BeaconActions from '../Visualizations/Position/BeaconActions';
 import PositionVisualization from '../Visualizations/Position';
 import VisualizationActions from '../Visualizations/VisualizationActions';
 import VisualizationStore from '../Visualizations/VisualizationStore';
-import connectToStores from 'alt/utils/connectToStores';
+import { connect } from 'alt-react';
 import uuid from 'uuid';
 
 /**
@@ -21,15 +21,6 @@ import uuid from 'uuid';
  * @memberOf module:VisualizationConfigurator
  */
 class VisualizationBuilder extends React.Component {
-  static getStores() {
-    return [VisualizationStore];
-  }
-
-  static getPropsFromStores() {
-    return {
-      VisualizationStore: VisualizationStore.getState()
-    }
-  }
   state = {
     options: {},
   }
@@ -126,4 +117,14 @@ class VisualizationBuilder extends React.Component {
   }
 }
 
-export default connectToStores(VisualizationBuilder)
+export default connect(VisualizationBuilder, {
+  listenTo() {
+    return [VisualizationStore];
+  },
+
+  getProps() {
+    return {
+      VisualizationStore: VisualizationStore.getState()
+    }
+  }
+})
