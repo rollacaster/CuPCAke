@@ -10,7 +10,7 @@ import {modals} from '../Helpers/Constants';
  * @memberOf module:VisualizationConfigurator
  * @augments external:Store
  */
-export default class QueryStore {
+class QueryStore {
   constructor() {
     this.bindActions(QueryActions);
     this.cps = null;
