@@ -12,7 +12,7 @@ import SizeForm from './SizeFormComponent';
 import {Title} from '../../UI';
 import {visBuilder} from '../../Helpers/Constants/Help';
 import {Button} from '../../UI';
-import heatmap from 'heatmap.js/heatmap.min.js';
+import heatmap from 'heatmap.js';
 import trilateration from './Trilateration';
 import d3 from 'd3';
 
