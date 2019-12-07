@@ -19,7 +19,7 @@
     "formsy-react": "^0.17.0",
     "heatmap.js": "^2.0.1",
     "history": "^1.17.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.1",
     "jsdoc": "^3.4.0",
     "kerberos": "0.0.17",
     "lodash": "^3.10.1",
